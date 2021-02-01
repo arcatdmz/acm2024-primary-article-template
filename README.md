@@ -29,13 +29,13 @@ If you don't have the `latexmk` command, you can install the [TeX Live](https://
 Bash:
 
 ```sh
-docker run --rm -it -v $(pwd):/texsrc arcatdmz/texlive
+docker run --rm -it -v $(pwd):/texsrc arcatdmz/texlive latexmk -pvc
 ```
 
 PowerShell:
 
 ```ps1
-docker run --rm -it -v ${pwd}:/texsrc arcatdmz/texlive
+docker run --rm -it -v ${pwd}:/texsrc arcatdmz/texlive latexmk -pvc
 ```
 
 ### Links / 関連リンク
