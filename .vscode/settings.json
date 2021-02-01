@@ -1,0 +1,21 @@
+{
+  "editor.formatOnSave": true,
+  "[latex,bibtex]": {
+    "editor.formatOnSave": false
+  },
+  "latex-workshop.latex.clean.fileTypes": [
+    "*.aux",
+    "*.bbl",
+    "*.blg",
+    "*.cut",
+    "*.dvi",
+    "*.fdb_latexmk",
+    "*.fls",
+    "*.log",
+    "*.out",
+    "*.xcp",
+    "*_temp.tex"
+    // , "*.toc", "*.synctex.gz"
+  ],
+  "latex-workshop.latex.autoClean.run": "onBuilt"
+}
