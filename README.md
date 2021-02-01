@@ -40,7 +40,7 @@ docker run --rm -it -v ${pwd}:/texsrc arcatdmz/texlive latexmk -pvc
 
 ### Links / 関連リンク
 
-- Technical details (ja): TBA
+- Technical details (ja): https://zenn.dev/junkato/articles/github-actions-to-generate-pdfs-for-pages
 - TeX Live Docker image with `git` command support: `arcatdmz/texlive` ([Docker Hub](https://hub.docker.com/repository/docker/arcatdmz/texlive), [GitHub](https://github.com/arcatdmz/texlive))
 
 ### Credits / 開発者
