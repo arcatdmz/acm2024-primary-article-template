@@ -16,6 +16,28 @@ It uses [the latest ACM Primary Template (published Nov. 16, 2020)](https://www.
 - Source TeX file: [main.tex](https://github.com/arcatdmz/acm2021-primary-article-template/blob/main/main.tex)
 - Output PDF: https://arcatdmz.github.io/acm2021-primary-article-template/main.pdf
 
+### Local development (paper writing) / ローカルでの執筆作業
+
+You could simply type `latexmk -pvc` for the purpose -- as stated in [its documentation](https://mg.readthedocs.io/latexmk.html), the command keeps its eyes on source files and re-compiles the PDF file whenever needed.
+
+If you don't have the `latexmk` command, you can install the [TeX Live](https://tug.org/texlive/) bundle or pull the Docker image `arcatdmz/texlive` and run the container.
+
+`latexmk -pvc` コマンドで執筆できます。 [ドキュメントに記載のとおり](https://mg.readthedocs.io/latexmk.html)、このコマンドはソースファイルに変更があるたびに PDF ファイルをコンパイルし直してくれます。
+
+`latexmk` コマンドがインストールされていない環境なら、[TeX Live](https://tug.org/texlive/)をインストールすればついてきますし、Docker イメージ `arcatdmz/texlive` に含まれているものを次のように使うこともできます。
+
+Bash:
+
+```sh
+docker run --rm -it -v $(pwd):/texsrc arcatdmz/texlive
+```
+
+PowerShell:
+
+```ps1
+docker run --rm -it -v ${pwd}:/texsrc arcatdmz/texlive
+```
+
 ### Links / 関連リンク
 
 - Technical details (ja): TBA
