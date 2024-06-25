@@ -8,6 +8,10 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+env:
+  SYSTEM_NAME_COMMAND: systemname
+  SYSTEM_NAME: Griffith
+
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
@@ -30,14 +34,30 @@ jobs:
     container: arcatdmz/texlive
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Build PDF file
-        run: latexmk -pdf && latexmk -c && mkdir -p docs && cp *.pdf ./docs/
+        run: latexmk -pdf
+      - name: Run scripts
+        run: apt update && apt install -y nodejs && node scripts/abstract.js > abstract.log
+      - name: Organize files to upload
+        run: mkdir -p docs && cp *.pdf *.log ./docs/
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
         with:
           # Upload "docs" directory
           path: "docs"
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v4
+      - name: Post to a Slack channel
+        # It's possible to post messages only when the build fails (or succeeds)
+        # if: failure()
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          channel-id: ${{ secrets.SLACK_CHANNEL_CI }}
+          slack-message: |
+            New PDF file was generated
+            - GitHub Actions URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            - GitHub Pages URL: ${{ steps.deployment.outputs.page_url }}
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
