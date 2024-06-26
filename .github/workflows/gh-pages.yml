@@ -59,6 +59,7 @@ jobs:
           slack-message: |
             New PDF file was generated
             - GitHub Actions URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-            - GitHub Pages URL: ${{ steps.deployment.outputs.page_url }}
+            - GitHub Pages URL: ${{ steps.deployment.outputs.page_url }}${{ env.FILE_MAIN }}
+            - Analytics URL: ${{ steps.deployment.outputs.page_url }}${{ env.FILE_ANALYTICS }}
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
