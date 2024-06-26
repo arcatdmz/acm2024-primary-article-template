@@ -4,7 +4,7 @@ const fs = require("fs");
 // https://tool.duruofei.com/abstract/
 
 const sysinExp = `\\${process.env.SYSTEM_NAME_COMMAND || "systemname"}`;
-const sysout = process.env.SYSTEM_NAME || "Geollery";
+const sysoutDefault = process.env.SYSTEM_NAME || "Geollery";
 
 function WordCount(str) {
   return str.split(/\s+/).length;
@@ -12,6 +12,15 @@ function WordCount(str) {
 
 function Analyze(a) {
   var res = a.trim();
+
+  // get system name
+  let sysout = sysoutDefault;
+  const re_sysout = new RegExp(`\\\\newcommand{\\${sysinExp}}{([^}]*)}`, "g");
+  let match = re_sysout.exec(res);
+  if (match && match[1]) {
+    sysout = match[1].trim();
+  }
+
   // begin re_abstract
   const startWord = "\\begin{abstract}";
   let start = res.indexOf(startWord),
@@ -21,7 +30,7 @@ function Analyze(a) {
   }
 
   // ieee \re_abstract
-  re_abs = /\\re_abstract{(.+)}/gm;
+  const re_abs = /\\re_abstract{(.+)}/gm;
   match = re_abs.exec(res);
   if (match && match[1]) {
     res = match[1];
@@ -50,7 +59,7 @@ function Analyze(a) {
   res = res.replace(/\'\'/g, '"');
   res = res.replace(/\\&/g, "&");
   res = res.replace(/ \./g, ".");
-  let sysin = new RegExp("\\" + sysinExp, "g");
+  let sysin = new RegExp(`\\${sysinExp}`, "g");
   res = res.replace(sysin, sysout);
 
   // comments

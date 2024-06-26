@@ -10,7 +10,8 @@ on:
 
 env:
   SYSTEM_NAME_COMMAND: systemname
-  SYSTEM_NAME: Griffith
+  FILE_MAIN: main.pdf
+  FILE_ANALYTICS: abstract.log
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
